@@ -156,3 +156,30 @@ For open source projects, say how it is licensed.
 ## Project status
 If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
 
+
+        modified:   app/Exceptions/Handler.php
+        new file:   app/Helpers/helpers.php
+        new file:   app/Http/Controllers/AdminDashboardController.php
+        modified:   app/Http/Controllers/Auth/LoginController.php
+        new file:   app/Http/Controllers/FrontendBusinessManageController.php
+        modified:   app/Http/Controllers/HomeController.php
+        modified:   app/Http/Middleware/Authenticate.php
+        modified:   app/Http/Middleware/RedirectIfAuthenticated.php
+        modified:   app/Models/Admin.php
+        modified:   app/Providers/RouteServiceProvider.php
+        modified:   composer.json
+        modified:   config/auth.php
+        public/assets/backend
+        resources/views/components/
+        modified:   resources/views/admin/layouts/partials/header.blade.php
+        new file:   resources/views/auth/admin/change-password.blade.php
+        new file:   resources/views/auth/admin/login.blade.php
+        new file:   resources/views/backend/admin-master.blade.php
+        new file:   resources/views/backend/frontend-business/all-business.blade.php
+        new file:   resources/views/backend/partials/message.blade.php
+        new file:   resources/views/backend/partials/sidebar.blade.php
+        new file:   resources/views/layouts/login-screens.blade.php
+        new file:   routes/admin.php
+        modified:   routes/web.php
+        resources/views/backend/admin-home.blade.php
+

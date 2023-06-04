@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Auth\AdminLoginController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\AdminDashboardController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,8 +18,19 @@ use App\Http\Controllers\Admin\Auth\AdminLoginController;
 
 Auth::routes();
 
+// admin login
+Route::middleware([])->group(function () {
+    Route::get('/login/admin', [LoginController::class,'showAdminLoginForm'])->name('admin.login');
+    Route::get('/login/admin/forget-password', 'FrontendController@showAdminForgetPasswordForm')->name('admin.forget.password');
+    Route::get('/login/admin/reset-password/{user}/{token}', 'FrontendController@showAdminResetPasswordForm')->name('admin.reset.password');
+    Route::post('/login/admin/reset-password', 'FrontendController@AdminResetPassword')->name('admin.reset.password.change');
+    Route::post('/login/admin/forget-password', 'FrontendController@sendAdminForgetPasswordMail');
+    Route::any('/logout/admin', [AdminDashboardController::class,'adminLogout'])->name('admin.logout');
+    Route::post('/login/admin', [LoginController::class,'adminLogin']);
+});
+
 //users routes
-Route::get('/', function () {return view('welcome');});
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
@@ -25,7 +39,7 @@ Route::group([
                'prefix'     => 'admins',
                'as'         => 'admin.',
                'namespace'  => 'App\Http\Controllers\Admin',
-               'middleware' => ['auth','AdminAuth']
+               'middleware' => ['auth:admin','AdminAuth']
             ],
     function(){
     
@@ -56,7 +70,7 @@ Route::group([
     'prefix'     => 'admins',
     'as'         => 'admin.',
     'namespace'  => 'App\Http\Controllers',
-    'middleware' => ['auth','AdminAuth']
+    'middleware' => ['auth:admin','AdminAuth']
  ],
 function(){
     /*businness routes*/

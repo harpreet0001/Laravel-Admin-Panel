@@ -63,7 +63,7 @@ class Handler extends ExceptionHandler
     {
 
         if ($this->isFrontend($request)) {
-            return redirect()->guest('login');
+            return redirect()->route('admin.login');
         }
 
         return $this->notAuthorizedResponse('You are not authorized');
@@ -71,10 +71,12 @@ class Handler extends ExceptionHandler
 
     protected function convertValidationExceptionToResponse(ValidationException $e, $request)
     {
-        $errors = $e->validator->errors()->getMessages();
+  
+        $errors  = $e->validator->errors()->getMessages();
+        $message = $e->getMessage();
 
         if ($this->isFrontend($request)) {
-            return $request->ajax() ? response()->json($errors, 400) : redirect()
+            return $request->ajax() ? response()->json(['message' => $message,'errors' => $errors], 400) : redirect()
                 ->back()
                 ->withInput($request->input())
                 ->withErrors($errors);
